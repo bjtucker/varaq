@@ -1,27 +1,36 @@
-<title>var'aq Reference Implementation 9/20/2000</title> 
+<title>var'aq Reference Implementation 5 September 2001 -- pre-martoq 
+0.5</title>
 
 <h1><i>var'aq</i> Release Notes</h1><p>
 <hr>
 <i>maintained by <a href="mailto:connorbd@yahoo.com">Brian Connors</a><br>
-revised 2 January 2001</i><p>
+revised 5 September 2001</i><p>
 
 <h3>Version Information</h3>
 
-This is the status of the <i>var'aq</i> project as of 20 September 2000. <p>
+This is the status of the <i>var'aq</i> project as of 12 August 2001. <p>
 
-This is the <b>Azetbur</b> release, after Chancellor Gorkon's daughter and successor in <i>Star Trek VI: The Undiscovered Country</i>.<p>
+This is the <b>pre-<i>martoq</i> 0.5</b> release, after the Klingon general who
+became chancellor after tbe death of Gowron. It is still a work in progress,
+and the final <i>martoq</i> release package will be available some time in
+late August or early September.<p>
 
 <h3>Status Summary</h3><p>
 
-We are moving ahead! Console I/O (on a very rudimentary level) is here, as well as much of the mathematical functionality and string handling. Lists are not here yet, and a more robust I/O model must await a better understanding of Klingon hacker culture to understand issues like authentication and how distributed processing might be used. <p>
+Lists currently exist, though the file support remains undefined. <p>
 
-This release is approaching usability. Files are not here yet (still under discussion), but there is console-level I/O and enough string support to do something useful. <p>
-
-<a href="mailto:jproctor@oit.umass.edu">j proctor</a> from the <i>varaq-dev</i> mailing list has contributed some sample code and a more flexible translator program than the one I wrote and distributed. His interpreter will be found in the <i>translators</i> directory.<p>
+Thanks to Jeff Evarts (bug fixes, list support) and Merrick J. Stemens (spec
+suggestions and an upcoming VB version).<p>
 
 <h3>Interpreter Status</h3><p>
 
-The interpreter is available with both Klingon and English keywords; however, keep in mind that maintenance is done mostly on the English version and the translator program is not ready for prime time. This will be fixed eventually.<p>
+The Klingon and English interpreters in the process of being unified; there
+should be no problems running either type of <i>var'aq</i> program through the
+interpreter, and since I was a bit lazy about it you can mix and match
+languages as you choose.<p>
+
+Jeff Evarts has added the basics of list support; big thanks go to him for
+that.</p>
 
 The following keywords are currently supported:<p>
 
@@ -33,7 +42,7 @@ The following keywords are currently supported:<p>
 	<li><b>choose/wIv</b>
 	<li><b>~ (quote/lI'moH)</b>
 	<li><b>name/pong</b>
-	<li><b>set/cher</b> 
+	<li><b>set/cher</b>
 	<li><b>repeat/vangqa'</b>
 	<li><b>eval/chov</b>
 </ul>
@@ -85,7 +94,8 @@ The <i>var'aq</i> I/O model remains to be defined, but the basic console I/O fun
 
 <li>List Operators<p>
 
-List support does not exist yet.<p>
+All list operators are now available, though I still need a Klingon word for
+<b>consume</b>. <p>
 
 <li>String Operators<p>
 
@@ -102,10 +112,10 @@ The current set of operators is sufficient to implement the others in the spec, 
 <h4>Implementation Issues and/or Bug Fixes</h4><p>
 
 <ul>
-	<li>The interpreter now knows to ignore hashbang (i.e. #!/usr/bin/varaq-whatever) lines. They can double as end-of-line comments if you like, but you really shouldn't; these are here primarily to allow the forthcoming <i>vqmake</i> program to spit out program files that a Unix shell can execute directly (which would be .vqx files on any other platform). 
+	<li>The interpreter now knows to ignore hashbang (i.e. #!/usr/bin/varaq-whatever) lines. They can double as end-of-line comments if you like, but you really shouldn't; these are here primarily to allow the forthcoming <i>vqmake</i> program to spit out program files that a Unix shell can execute directly (which would be .vqx files on any other platform).
 	<li>Took the "\t" out of disp/cha' to facilitate a possible CGI conversion. Better formatted output will be a priority very shortly.
-	<li>The interpreter also doesn't see lines beginning with //. This is to allow for static linking of .vql files (though if someone wants to implement <i>var'aq</i> "shared libraries" I'll be glad to add the revs to the interpreter). 
-	<li>Cleaned up the execution logic a bit -- the code to execute a proc object was already in there about four times and was about to go in again for compose/naqmoH, so I abstracted it into a routine called execblock() per Chris' advice (RTFC). 
+	<li>The interpreter also doesn't see lines beginning with //. This is to allow for static linking of .vql files (though if someone wants to implement <i>var'aq</i> "shared libraries" I'll be glad to add the revs to the interpreter).
+	<li>Cleaned up the execution logic a bit -- the code to execute a proc object was already in there about four times and was about to go in again for compose/naqmoH, so I abstracted it into a routine called execblock() per Chris' advice (RTFC).
 	<li>Merged in j proctor's additions.
 </ul>
 
@@ -115,7 +125,7 @@ A few changes:<p>
 <ul>
 	<li>A number of operators have been added:
 	<ul>
-		<li><b>//<i>name</i></b> -- equivalent to C <code>#include</code>. 
+		<li><b>//<i>name</i></b> -- equivalent to C <code>#include</code>.
 		<li>Numerous "constants" (actually more like environment variables).
 	</ul>
 	<li>Several operators have been renamed:
@@ -123,9 +133,9 @@ A few changes:<p>
 		<li><b>strcat</b> is now <b>strtie</b> to bring it in line with the Klingon <b>tlheghrar</b>.
 		<li>The basic arithmetic operators have been given new
 Klingon names to coincide with recent additions to the Klingon linguistic
-canon. 
+canon.
 	</ul>
-	<li>More coinages in the section headings. 
+	<li>More coinages in the section headings.
 </ul>
 
 <h3>Acknowledgements</h3><p>
@@ -138,4 +148,4 @@ get this thing out the freakin' door. <p>
 
 <hr>
 
-Click <a href="http://www.geocities.com/connorbd/varaq">here</a> to go to the <i>var'aq</i> home page. 
+Click <a href="http://www.geocities.com/connorbd/varaq">here</a> to go to the <i>var'aq</i> home page.

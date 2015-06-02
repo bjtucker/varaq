@@ -433,7 +433,7 @@ sub execute {
 		if ($a != 0 && $b != 0) {
 			push @{$stack}, 1;
 		} else {
-			push @{$stack}, 1;
+			push @{$stack}, 0;
 		}
 	} elsif ($cmd eq 'or') {
 		$a = pop @{$stack};
@@ -441,7 +441,7 @@ sub execute {
 		if ($a != 0 || $b != 0) {
 			push @{$stack}, 1;
 		} else {
-			push @{$stack}, 1;
+			push @{$stack}, 0;
 		}
 	} elsif ($cmd eq 'xor') {
 		$a = pop @{$stack};
@@ -449,7 +449,7 @@ sub execute {
 		if (($a != 0) xor ($b != 0)) {
 			push @{$stack}, 1;
 		} else {
-			push @{$stack}, 1;
+			push @{$stack}, 0;
 		}
 
 # tlheghjangwI'

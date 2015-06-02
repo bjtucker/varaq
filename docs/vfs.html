@@ -1,0 +1,84 @@
+<title>var'aq Filesystem Supplement</title>
+
+<h1>Filesystem Functions in <i>var'aq</i></h1><br>
+<h3>De'ghomjangwI'mey</h3><p>
+
+<h3>F.1 Introduction</h3><p>
+
+<h4>F.1.1 vfs Described</h4><p>
+
+This page describes a simple filesystem extension to the <i>var'aq</i>
+programming language. It is a fairly simple scheme that gives little or no
+thought to the intricacies of security on a <i>var'aq</i>-based system;
+its primary functions are limited to creating, reading, writing, and
+appending files and it makes no pretensions of being a production-quality
+filesystem. <p>
+
+Certain non-Earthly features do exist, however; there is no concept of a
+file descriptor inherent in the design. File reads and writes are done by
+copying text data (no binary data at this stage) into and out of strings.
+(A close equivalent to a file descriptor in vfs would be a variable with
+an attached pathname; this is a fairly common idiom in systems that must
+keep constant access to specific files, but is not explicitly a part of
+the filesystem.) <p>
+
+<h4>F.1.2 Pathnames/<i>SammoHpongmey</i></h4><p>
+
+This document makes frequent reference to pathnames (<i>SammoHpongmey</i> 
+or beacon-names). The precise meaning of this term approximates the Earth
+understanding of the term, though it may also include out-of-band
+information such as authentication tickets and content filters.  
+
+<h4>F.1.3 vfs Error Codes</h4><p>
+
+All vfs functions have basically similar error semantics. Since the system
+is stateless, any function that cannot find the file it's looking for will
+return a null pathname (SammoH Hegh, dead beacon). 
+
+
+<h3>F.2 Creating and Deleting Files</h3><p>
+
+<h4>F.2.1 fcreate/cher_De'ghom</h4><p>
+
+<i>pathname <b>cher_De'ghom</b> -</i><p>
+
+Creates a file with the specified <i>pathname</i>. 
+
+<h4>F.2.2 flock/Doq_De'ghom</h4><p>
+
+<i>pathname <b>Doq_De'ghom</b> -</i><p>
+
+Restricts write access to the file at <i>pathname</i> to the current
+process. Generally used in roughly the same place as an <i>fopen()</i> in
+C, though the semantics are drastically different.<p>
+
+<h4>F.2.3 funlock/DoqHa'_De'ghom</h4><p>
+
+<i>pathname <b>DoqHa'_De'ghom</b> -</i><p>
+
+Unlocks the file at <i>pathname</i>. This is generally handled by the
+filesystem garbage collector at process termination time, but it is
+considered good practice to take care of it yourself, especially in an
+embedded environment.<p>
+
+<h4>F.2.4 fdelete/HoH_De'ghom</h4><p>
+
+<i>pathname <b>HoH_De'ghom</b> -</i><p>
+
+Removes the file at <i>pathname</i>. <p>
+
+<h3>F.3 Reading and Writing Files</h3><p>
+
+<h4>F.3.1 fread/jotlh_De'ghom</h4><p>
+
+<i>pathname <b>jotlh_De'ghom</b> str </i><p>
+
+Copies the contents of the file at <i>pathname</i> into <i>str</i>;
+returns null pathname on failure.<p>
+
+<h4>F.3.2 fwrite/tatlh_De'ghom</h4><p>
+
+<i>str pathname <b>tatlh_De'ghom</b> -</i><p>
+
+Replaces the contents of the file at <i>pathname</i> with <i>str</i>.<p>
+
