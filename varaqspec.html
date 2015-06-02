@@ -1,0 +1,918 @@
+<title>var'aq Interim Specification 2 January 2001</title>
+<h1><i>var'aq</i> Preliminary Specification</h1><br>
+<i><a href="mailto:connorbd@yahoo.com">Brian Connors</a><br>
+29 May 2000<br>
+last updated 02 January 2001</i>
+<hr>
+
+<h3>0 Introduction</h3><p>
+
+This specification documents the
+programming language <i>var'aq</i>. <i>var'aq</i> is a programming
+language created as part of an exercise to imagine the hacker culture of
+<a href="http://www.startrek.com">Star Trek's</a> Klingon race. The
+Klingon culture was chosen because it is probably the best-realized of all
+such cultures in the Science Fiction/Fantasy genres of literature, and the
+Klingon language is sufficiently different from English to make language
+design a significant challenge. <p>
+
+<h4>0.1 Language Levels</h4> <p>
+
+<i>var'aq</i> is divided into three implementation levels, each a subset
+of its successor. An implementation conforming to the current
+<i>var'aq</i> spec should be labeled with the level of conformance.<p>
+
+<ul>
+<li><b>Level 0</b> -- The focus of this preliminary spec, a Level 0
+<i>var'aq</i> implementation minimally contains all operators and data
+structures listed in this specification. Level 0 covers all basic
+mathematical, relational, and logical operators and a minimal set of
+Turing-complete control constructs and I/O operators. A Level 0
+implementation does not necessarily have to be written in Klingon, but
+if not an external Klingon-to-English translation filter is required. 
+<li><b>Level 1</b> -- <B>NOT YET DOCUMENTED</b> -- A Level 1
+implementation constitutes a full text-mode implementation of
+<i>var'aq</i>, including basic concurrency support, stream-based
+file I/O, support for the
+<i>var'aq</i> Standard MPI Binding (not yet available), and full support
+for Klingon-language constructs. Also includes support for packages
+(<i>jangwI'ghom</i>).
+
+<li><b>Level 2</b> -- <B>NOT YET DOCUMENTED</b> -- A Level 2
+implementation has all of the above, as well as package support, virtual
+device support
+(minimally, printer, framebuffer, and network connection as well as
+console), and is suitable for use as a scripting or systems programming
+language. A POSIX binding is optional but highly recommended.
+</ul>
+<p>
+
+<h3>0.2 Legalese, Credit, Etc.</h3><p>
+
+<i>var'aq</i> was concieved by <a href="mailto:connorbd@yahoo.com">Brian
+Connors</a> and implemented by Brian with help from <a
+href="http://www.catseye.mb.ca">Chris Pressey</a> and <a
+href="mailto:mark@kli.org">Mark Shoulson</a>. It is an independent
+project and is not connected with the <a
+href="http://www.startrek.com">Star Trek</a> people (i.e.
+Paramount/Viacom).<p>
+
+This document is (c)2000-2001 Brian Connors and may be distributed freely as
+long as this copyright notice is retained. You may freely implement for
+private use a <i>var'aq</i> implementation with no restriction; you must
+contact me for certification (i.e. I make sure you're following the spec)
+in order to distribute your implementation as freeware. This specification
+may not be used for commercial purposes without a separate licensing
+arrangement.<p>
+
+<h3>0.3 Apologies</h3><p>
+
+You'll notice that I tend to drift in and out of character in this document.
+The only thing I can say to this is that character isn't a great concern in a
+specification document; I may do an extensive revision later on, but as I
+write this <i>var'aq</i> isn't even alpha-quality code, and the spec is
+subject to change anyway. Just enjoy and try to keep up; we'll worry about
+"realism" later. Thank you for your patience.<p> 
+
+<h3>1 Language Overview</h3><p>
+
+<i>var'aq</i> is a stack-based, RPN programming language with points of
+similarity to Lisp, Forth, and PostScript. It is more of a functional
+language than an imperative (Algol-like) language; most operations are
+dependent on the stack and bypass the local variable store altogether. <p>
+
+<h4>1.1 Notation Used In This Specification</h4><p>
+
+All operator names will be given in English and Klingon. The notation and
+format of the operator entries are cribbed from <a
+href="http://www.adobe.com">Adobe's</a> PostScript Language
+Specification.<p> 
+
+<h4>1.2 Basic Concepts</h4><p>
+
+<i>var'aq</i> is a fairly simple, RPN-based language where pretty much
+everything is an operator. It is fairly loosely typed and little
+distinction is made between code and data. Typechecking is not strictly
+required (and in fact does not exist in the current reference
+implementation) but is encouraged.<p>
+
+<h4>1.3 Data Types</h4><p>
+
+<i>var'aq</i> recognizes only a few data types so as to keep the programming
+model as simple as possible. <p>
+
+<h4>1.3.1 number/mI'</h4><p>
+
+<i>var'aq</i> numbers are a bit nonspecific as to representation; there is no
+support for complex numbers in a Level 0 implementation (Level 1 and above do
+include support). In general, integers (<i>HabmI'</i>) and reals are
+considered interchangeable where possible, and the interpreter is expected to
+use whichever is more efficient. Note that integer operations such as
+<b>Habwav</b> and the bitwise operators will generally silently truncate the
+operands (optionally giving a runtime warning if so requested by the user).<p>
+
+<h4>1.3.2 function/jangwI'</h4><p>
+
+A function in <i>var'aq</i> is understood to be much the same thing as a
+lambda closure, i.e. a procedure with a return value (thus the Klingon term
+jangwI', meaning "answerer"). Functions are defined using the <b>{ }</b>
+operators, and may be assigned names using the <b>pong</b> operator.<p>
+
+<h4>1.3.3 list/ghomHom</h4><p>
+
+<i>var'aq</i> lists (<i>ghomHom</i>, meaning "cluster" (sort of)) are in some
+ways very similar to those of Lisp. <p>
+
+<h4>1.3.4 string/tlhegh</h4><p>
+
+Strings in <i>var'aq</I> (and Klingon programming in general) seem to be
+considered something of a black art; Klingon computer science appears to have
+no real concept of anything like regular expressions, and as a result decent
+string handling is the territory of those trusted to write things like
+language compilers (ngoq poSmoH? The idea would baffle a Klingon... so
+insecure, so random...). Brute-force string comparisons seem to be the order
+of the day in current practice. That said, <i>var'aq</i> strings also have a
+couple of important properties: a) white space is not significant; b) they can
+be decomposed into lists using the <b>joq</b> operator; and c) they can be
+used as literal names (though it's not a terribly good idea).
+
+<h4>1.4 Basic Assumptions</h4><p>
+
+<h4>1.4.1 Number Representations</h4><p>
+
+All standard <i>var'aq</i> systems are assumed to be binary machines using
+eight or sixteen-bit bytes (word size is unimportant). Negative integer
+values are represented as two's-complement. A floating-point implementation is
+not specified, though the Klingon floating-point standard is not drastically
+different from IEEE floating point (differing bit positions, primarily). If a
+standard float must be chosen, go with IEEE double-precision.<p>
+
+<h4>1.4.2 Garbage Collection</h4><p>
+
+All <i>var'aq</i> implementations are required to use garbage collection
+(<i>woDHa'</i>, roughly meaning "retrieve" or "unwaste"). No standard
+algorithm is specified, and this requirement may be ignored if the implementor
+uses an environment where this is assumed (Perl, for example).<p>
+
+<h4>1.4.3 Filetypes</h4><p>
+
+Klingon military computer systems use a sort of modular-database storage
+scheme in which the concept of "file" doesn't mean a whole lot. However, on
+systems where files are the common way of doing business, the following
+extensions and MIME types are standard:<p>
+
+<ul>
+<li><b>.vq -- application/varaq</b> -- a standard <i>var'aq</i> source file
+<li><b>.vqe -- application/varaq-engl</b> -- an English-keyword
+<i>var'aq</i> source file
+<li><b>.vql -- application/vqlib</b> -- a <i>var'aq</i> library source file
+<li><b>.vqx -- application/vqexe</b> -- a <i>var'aq</i> executable resource
+file
+</ul>
+
+Note that this is being specified here mainly as a matter of convenience. The
+<i>var'aq</i> resource file format has not yet been defined.<p>
+
+<h3>2 Language Basics</h3><p>
+
+This section describes the fundamental <i>var'aq</i> language constructs
+and data types. <p>
+
+<h4>2.1 Stack Operations</h4><p>
+
+These operations directly manipulate the <i>var'aq</i> operand stack. The
+operand stack can hold any of four kinds of data: numbers (real or
+integer), strings, functions, or arrays. It is best described as
+"translucent", similar to the transparent stack of Forth or PostScript but
+somewhat more restricted. The internal data representation of the stack is
+not available to the programmer. <p>
+
+<h4>2.1.1 pop/woD</h4><p>
+
+<i>obj <b>woD</b> -</i><p>
+
+Pops and discards the top item on the stack. The literal meaning is
+<i>discard</i>.<p>
+
+Errors: stackUnderflow<p>
+
+<h4>2.1.2 dup/latlh</h4><p>
+
+<i>obj <b>latlh</b> obj obj</i><p>
+
+Duplicates the top object on the stack.<p>
+
+Errors: stackUnderflow<p>
+
+<h4>2.1.3 exch/tam</h4><p>
+
+<i>obj1 obj2 <b>tam</b> obj2 obj1</i><p>
+
+Inverts the order of the top two objects on the stack. <p>
+
+Errors: stackUnderflow<p>
+
+<h4>2.1.4 clear/chImmoH</h4><p>
+
+<i>... obj <b>chIm</b> -</i><p>
+
+Empties the stack.<p>
+
+Errors: none<p>
+
+<h4>2.1.5 remember/qaw</h4><p>
+
+<i>- <b>qaw</b> flag</i><p>
+
+Puts a flag (like PostScript's <b>mark</b>) on the stack. The internal
+representation of the flag is not available to the programmer. <p>
+
+Errors: none<p>
+
+<h4>2.1.6 forget/qawHa'</h4><p>
+
+<i>... flag ... <b>qawHa'</b> ...</i><p>
+
+Clears the stack down to the flag and pops the flag. If there is no flag
+present, the stack is emptied completely.<p>
+
+Errors: none<p>
+
+<h4>2.1.7 dump/Hotlh (lit. scan)</h4><p>
+
+<i>... <b>Hotlh</b> ...</i><p>
+
+Prints the contents of the operand stack to STDOUT without changing them.
+<i>Note</i>: the <i>Hotlh</i> operator is a debugging operator and is not
+intended for use in programs; it is merely documented here because it
+might be useful to a <i>var'aq</i> developer. In particular, the output
+format of this operator is implementation-defined and will not be
+specified in this document. <i>Hotlh</i> may be redefined to take such
+arguments as the implementor feels appropriate.<p>
+
+Errors: implementation-defined.
+
+<h4>2.2 Data/Code Operations</h4><p>
+
+<i>var'aq</i>, like many similar languages, does not distinguish between
+code and data. These operations include operators to associate names with
+objects and executable procedures, as well as operators to define and
+manage data structures. Note that variables and procedures live in a
+common namespace, since the act of pushing the content of a variable is 
+essentially the same as executing the variable's name.<p>
+
+<h4>2.2.1 ~ (quote/lI'moH)</h4><p>
+
+<i>- <b>~ obj</b> obj</i><p>
+
+The ~ operator is a special form, as it is not a
+postfix operator. When the interpreter encounters a ~, it pushes the next
+token on the stack as is regardless of whether it is a defined name.
+(Attempting to push an undefined name without a ~ will generate an
+undefinedName error.)<p>
+
+The literal meaning of this operator's name is "make useful".
+
+Errors: none<p>
+
+<h4>2.2.2 { </h4><p>
+
+Begins the creation of an anonymous procedure. The process is
+implementation-dependent.<p>
+
+<h4>2.2.3 }</h4><p>
+
+<i>- <b>}</b> proc</i><p>
+
+Completes procedure construction and pushes a reference to the completed
+procedure on the stack. Does not execute the procedure.<p>
+
+Errors: noDefinedProc
+
+<h4>2.2.4 name/pong</h4><p>
+
+<i>obj id <b>pong</b> -</i><p>
+
+Associates <i>obj</i> with <i>id</i> and places it in the system lookup
+space. Conventionally used to associate new operator names with procedure
+objects.<p>
+
+Example: <i>~ add3 { chel chel cha' } pong</i> <p>
+Pushes the name <i>add3</i> and a procedure object on the stack, then
+binds the name to the procedure. <p>
+
+Errors: stackUnderflow, noDefinedProc<p>
+
+<h4>2.2.5 set/cher</h4><p>
+
+<i>obj id <b>cher</b> -</i><p>
+
+Reassigns the value of a value already in the system lookup space. Used
+primarily for variable assignments.<p>
+
+Errors: stackUnderflow, noSuchName<p>
+
+<h4>2.2.6 (* ... *) (comment)</h4><p>
+
+Marks a comment in a program. All such comments are treated as single tokens
+and ignored.<p>
+
+<h4>2.2.7 //<i>name</i></h4><p>
+
+Causes the interpreter to import a file with the name <i>name</i>.vql and
+execute it as if it is part of the currently executing program. This can be
+handled by an external static linker if there is no shlib-like facility in the
+interpreter. Essentially equivalent to <code>#include</code> in C. <p>
+
+<h4>2.3 Control Flow</h4><p>
+<i>var'aq</i> supports a small but sufficient supply of conditional and
+iterative operators. <p>
+
+<h4>2.3.1 ifyes/HIja'chugh</h4><p>
+
+<i>bool proc <b>HIja'chugh</b> -</i><p>
+
+Pops the proc object off the stack, then evaluates the boolean. If it's
+true, the proc object is evaluated; otherwise, it's thrown out. <p>
+
+Errors: stackUnderflow, noDefinedProc<p>
+
+<h4>2.3.2 ifno/ghobe'chugh</h4><p>
+
+<i>bool proc <b>ghobe'chugh</b> -</i><p>
+
+Similar to <i>HIja'chugh</i> above, but executes proc only if bool is false.
+<p>
+
+Errors: stackUnderFlow, noDefinedProc<p>
+
+<h4>2.3.3 choose/wIv</h4><p>
+
+<i>bool <b>wIv</b> bool bool</i><p>
+
+Duplicates a boolean value on top of the stack. Allows paired
+HI'ja'chugh/ghobe'chugh clauses.<p>
+
+<b>Note:</b> To the untrained eye, it may seem as though wIv and latlh are
+identical. This is true in the reference implementation, but may not be in any
+version that actually does some level of type checking. This bit of
+syntactic sugar should never be relied upon; always use wIv in this
+situation.<p>
+
+<h4>2.3.4 eval/chov</h4><p>
+<i>proc <b>chov</b> -</i><p>
+
+Pops a proc object off the stack and executes it.<p>
+
+Errors: stackUnderflow, noDefinedProc<p>
+
+<h4>2.3.5 escape/nargh</h4><p>
+
+<i>bool <b>nargh</b> -</i><p>
+
+Exit the current procedure. Useful for exit conditions on
+loops. Will terminate the current session if used top-level.<p>
+
+<h4>2.3.6 repeat/vangqa'</h4><p>
+
+<i>val proc <b>vangqa'</b> -</i><p>
+
+Pops val and proc off the stack and executes proc val times. <p>
+
+<h4>2.4 List Operations</h4><p>
+
+<i>var'aq</i> supports a series of operators for management of lists
+(<i>ghomHom</i>, which seems to mean something like "cluster"). These
+primitives are the language's primary way of managing aggregate objects and
+work much like similar operators in LISP; a more sophisticated paradigm, such
+as OO extensions or the like, can be built with these operators.<p>
+
+Note that "objects" as they stand in <i>var'aq</i> are largely singletons as
+in JavaScript; there is no inherent concept of object-orientation or anything
+like it in standard <i>var'aq</i>.
+
+<h4>2.4.1 (</h4><p>
+
+Begins a list definition.<p>
+
+<h4>2.4.2 ) </h4><p>
+
+<i>( item1 item2 ... <b>)</b> list </i><p>
+
+Creates a list and pushes it onto the stack.<p>
+
+<h4>2.4.3 split/SIj</h4><p>
+
+<i>list <b>SIj</b> item1 list</i><p>
+
+Pops a list off the stack and returns the first item and the rest of the
+list.<p>
+
+<h4>2.4.4 cons/muv</h4><p>
+
+<i>list item1 ... <b>muv</b> list</i><p>
+
+Takes an object and adds it to the head of a list. Equivalent to the LISP
+<b>cons</b> operator.
+
+<h4>2.4.5 shatter/ghorqu'</h4><p>
+
+<i>list <b>ghorqu'</b> item1 item2 ...</i><p>
+
+Reduces a list to its component elements and pushes them on the stack in
+order. <p>
+
+<b>Note:</b> The precise meaning of the construction <i>ghorqu'</i> is
+a bit obscure; the rendering <i>shatter</i> is idiomatic and may derive from a
+nonstandard dialect. Standard Klingon would generally prefer <i>jor</i>,
+meaning <i>explode</i>.)<p>
+
+<h4>2.4.6 empty?/chIm'a'</h4><p>
+
+<i>list <b>chIm'a'</b> bool</i><p>
+
+Examines a list on the stack and returns 1 if its value is null (<i>pagh</i>),
+a 0 if it contains anything.
+ 
+<b>Note:</b> some implementations also have an
+operator known as bite/<i>chop</i>, equivalent to the Lisp <i>cdr</i>. This is
+not required in any standard <i>var'aq</i> implementation and can easily be
+rendered by the function<p>
+<pre><code>
+
+~ chop { SIj woD } pong
+
+</pre></code><p>
+
+<h4>2.5 String Operators<br>
+<i>tlheghjangwI'mey</i></h4><p>
+
+String handling in <i>var'aq</i> is generally thought to be somewhat
+deficient by Earth standards; all strings are handled as if whitespace is not
+significant, and string management is a bit primitive. Substrings are
+understood, as are very basic forms of pattern matching, but Klingon computer
+science seems to regard string-handling facilities such as regular expressions
+as something of a black art, left only to those responsible for writing
+compilers and that sort of thing. <p> 
+
+<h4>2.5.1 strtie/tlheghrar</h4><p>
+
+<i>str1 str2 <b>tlheghrar</b> str3</i><p>
+
+Concatenates the top two strings on the stack into one.<p>
+
+<h4>2.5.2 compose/naQmoH</h4><p>
+
+<i>mark str1 str2 ... strn <b>naQmoH</b> strn'</i><p>
+
+Pops objects (executing proc objects if necessary) off the stack until a
+marker (placed by <b>qaw</b>) is hit and combines them into one string.
+
+<h4>2.5.3 streq?/tlheghrap'a'</h4><p>
+
+<i>str1 str2 <b>tlheghrap'a'</b> bool</i><p>
+
+Pops the top two strings on the stack, compares them, and returns 1 if
+identical, 0 if not.
+
+<h4>2.5.4 strcut/tlheghpe'</h4><p>
+
+<i>str startval endval <b>tlheghpe'</b> substr</i><p>
+
+Pops two values and a string and returns the section of the string between
+character <i>startval</i> and character <i>endval</i>.<p>
+
+<h4>2.5.5 strmeasure/tlheghjuv</h4><p>
+
+<i>str <b>tlheghjuv</b> val</i><p>
+
+Pops a string off the stack and returns its length in characters. <p>
+
+<h4>2.5.6 explode/jor</h4><p>
+
+<i>str <b>jor</b> list</i><p>
+
+Separates individual "words" in a string by whitespace.<p>
+
+<h3>3 Mathematical Operators<br>
+<i>mI'jangwI'mey</i></h3><p>
+
+Klingon mathematical study is somewhat less sophisticated than Federation
+standard, but it covers all the important concepts. A full set of arithmetic
+and basic trigonometric operations is available. <p>
+
+<h4>3.1 Arithmetic Operations<br>
+<i>toghwI'mey</i></h4><p>
+
+Arithmetic operators usually work with real numbers unless otherwise
+stated. The number operators (sec 3.3) can convert them to integers if
+necessary.<p>
+
+<i>(note: verisimilitude would require that the Klingon understanding of
+math not necessarily coincide with ours. But I think it's safe to say that
+this basic set of operations is enough to at least get a Klingon
+battlecruiser out of spacedock.)</i><p> 
+
+<h4>3.1.1 add/boq</h4><p>
+
+<i>a b <b>boq</b> sum</i><p>
+
+Pops the top two values on the stack and replaces them with their sum.<p>
+
+Note that the four basic operations are based around the term <i>boq</i>,
+which literally means "to ally with". The metaphor is a bit strained but
+is well-established enough that most Klingons do not think twice about it.<p>
+
+<h4>3.1.2 sub/boqHa'</h4><p>
+
+<i>a b <b>boqHa'</b> difference</i><p>
+
+Pops the top two values on the stack and replaces them with a - b.<p>
+
+<h4>3.1.3 mul/boq'egh</h4><p>
+
+<i>a b <b>boq'egh</b> product</i><p>
+
+Pops the top two values on the stack and replaces them with their
+product.<p>
+
+<h4>3.1.4 div/boqHa''egh</h4><p>
+
+<i>a b <b>wav</b> quotient</i><p>
+
+Pops the top two values on the stack and replaces them with a/b.<p>
+
+<h4>3.1.5 idiv/HabboqHa''egh (lit. full-divide)</h4><p>
+
+<i>a b <b>HabboqHa''egh</b> quotient</i><p>
+
+Pops the top two values on the stack and replaces them with the results
+of an integer division operation.<p>
+
+<h4>3.1.6 mod/chuv (lit. leftover)</h4><p>
+
+<i>a b <b>chuv</b> remainder</i><p>
+
+Pops the top two values and returns the remainder of a mod b.<p>
+
+<h4>3.1.7 pow/boqHa'qa' (lit. remultiply)</h4><p>
+
+<i>base exp <b>boqHa'qa'</b> real</i><p>
+
+Pops the top two values and returns base^exp.<p>
+
+<h4>3.1.8 sqrt/loS'ar (lit. fourth-howmuch)</h4><p>
+
+<i> angle <b>loS'ar</b> real </i><p>
+
+Returns the square root of val.<p>
+
+<h4>3.1.9 add1/wa'boq</h4><p>
+
+<i>a <b>wa'boq</b> a+1</i><p>
+
+Increments the top value on the stack by one.<p>
+
+<h4>3.1.10 sub1/wa'boqHa'</h4><p>
+
+<i>a <b>wa'boqHa'</b> a-1</i><p>
+
+Decrements the top value on the stack by one.<p>
+
+<h4>3.2 Trigonometric and Logarithmic Operators<br>
+<i>SIHpojjangwI'mey 'ej ghurjangwI'mey</i></h4><p>
+
+The standard Klingon unit of arc measure is the vatlhvI' (hundredth-part),
+which is the same term used for percentage. However, Klingon
+mathematicians are familiar with the concept of radians (botlhchuq,
+center-distance) and all known <i>var'aq</i> implementations work in
+radians for input and output.<p>
+
+<h4>3.2.1 sin/joq (lit. wave)</h4><p>
+
+<i>angle <b>joq</b> real</i><p>
+
+Returns the sine of val.<p>
+
+<h4>3.2.2 cos/joqHa' (lit. counter-wave)</h4><p>
+
+<i>angle <b>joqHa'</b> cos(val)</i><p>
+
+Returns the cosine of val.<p>
+
+<h4>3.2.3 tan/qojmI' (lit. cliffnumber)</h4><p>
+
+<i>angle <b>qojmI'</b> tan(val)</i><p>
+
+Returns the tangent of val.<p>
+
+<h4>3.2.4 atan/qojHa' (lit. anticliff)</h4><p>
+
+<i>num den <b>qojHa'</b> angle</i><p>
+
+Returns the arctangent of <i>num / den</i>.<p>
+
+<h4>3.2.5 ln/ghurtaH</h4><p>
+
+<i>num <b>ghurtaH</b> real</i><p>
+
+Returns the natural log of <i>num</i>.
+
+<h4>3.2.6 log/maHghurtaH</h4><p>
+
+<i>num <b>maHghurtaH</b> real</i><p>
+
+Returns the base 10 log of <i>num</i>.<p>
+
+<h4>3.2.7 log3/wejghurtaH</h4></i><p>
+
+<i>num <b>wejghurtaH</b> real</i><p>
+
+Returns the base 3 log of <i>num</i>. (This function is actually
+considered a level 1 function, and is believed to exist only for
+historical purposes. Its use is very rare except among programmers whose
+native language is Standard High Klingon (which historically used a base 3
+number system) and is unknown among other users.)
+
+<h4>3.3 Numerical Operators and Constants</h4><p>
+
+This section describes operators that operate on numbers themselves, as
+well as common system-level constants. (Note that some of these
+functions look like verbs in English and adjectives in Klingon; the
+idea is that where we might say <i>1.3 clip</i> to get 1 a Klingon
+would be thinking <i>the clipped 1.3</i>.<p>
+
+<h4>3.3.1 clip/poD</h4><p>
+
+<i>real <b>poD</b> int</i><p>
+
+Removes the fractional portion of a real number (equivalent to
+floor(real).<p>
+
+<h4>3.3.2 smooth/Hab (lit. smooth)</h4><p>
+
+<i>real <b>Hab</b> int</i><p>
+
+Rounds a number to the nearest integer.<p>
+
+<h4>3.3.3 howmuch/'ar</h4><p>
+
+<i>num <b>'ar</b> num2</i><p>
+
+Returns the absolute value of <i>num</i>.<p>
+
+<h4>3.3.4 setrand/mIScher</h4><p>
+
+<i>num <b>mIScher</b> -</i><p>
+
+Sets the random number generator seed value to <i>num</i>. Not common,
+since most <i>var'aq</i> implementations have a rather arcane formula for
+picking a pseudo-random seed value (security reasons, presumably).<p>
+
+<h4>3.3.5 rand/mIS</h4><p>
+
+<i>num <b>mIS</b> real</i><p>
+
+Returns a random real number in the range 0 to <i>num</i>. If there is no
+meaningful input on the stack, 
+
+<h4>3.3.6 pi/HeHmI'</h4><p>
+
+Pushes the value pi (~3.14159...) onto the stack. The Klingon name
+literally means "edge-number".<p>
+ 
+<h4>3.3.7 e/ghurmI' </h4><p>
+
+Pushes the value e onto the stack. The Klingon name literally means
+"growth-number".<p>
+
+<h4>3.3.8 int?/HabmI''a'</h4><p>
+
+<i>val <b>HabmI''a'</b> bool</i>
+
+Pops the top value on the stack and returns 1 if it is an integer, 0 if
+not.<p>
+
+<h4>3.3.9 number?/mI''a'</h4><p>
+
+<i>val <b>mI''a'</b> bool</i><p>
+
+Pops the top value off the stack and returns 1 if it's a number, 0 if it's
+something else.
+
+<h4>3.3.10 numberize/mI'moH</h4><p>
+
+<i>str <b>mi'moH</b> val</i><p>
+
+Pops a string off the stack, converts it into a numerical value, and returns
+it.<p>
+
+<h4>3.4 Bitwise operators</h4><p>
+
+Though <i>var'aq</i> makes no clear distinction between integers and reals, it
+is nevertheless useful to be able to manipulate a number on the bit level. The
+following operators assume that their operands will always be treated as
+integers; effects on floating-point values are undefined, and may be
+disallowed at the implementor's discretion.<p>
+
+<b>Note:</b> The <i>var'aq</i> bitwise operators are quite controversial as of
+this writing (they are considered inappropriately low-level) and may be
+removed or altered in future versions of this specification.<p>
+
+It is to be noted that the Klingon coinages for the operation (especially
+<i>tlhoch</i> (contradict) for xor) are unusually obscure even for Klingon
+hackerspeak and probably reflect fairly profound differences in shades of
+meaning.<p>
+
+<h4>3.4.1 isolate/mobmoH</h4><p>
+
+<i>a b <b>mobmoH</b> result</i><p>
+
+Performs a bitwise AND on a and b.<p>
+
+<h4>3.4.2 mix/DuD</h4><p>
+
+<i>a b <b>DuD</b> result</i><p>
+
+Performs a bitwise OR on a and b.<p>
+
+<h4>3.4.3 contradict/tlhoch</h4><p>
+
+<i>a b <b>tlhoch</b> result</i><p>
+
+Performs a bitwise XOR on a and b.<p>
+
+<h4>3.4.4 compl/Qo'moH</h4><p>
+
+<i>val <b>Qo'moH</b> ~val</i><p>
+
+Returns the one's-complement of val. <b>Note:</b> The literal meaning is
+something like "make it say no".<p>
+
+<h4>3.4.5 shiftright/nIHghoS</h4><p>
+
+<i>a b <b>nIHghoS</b> result</i><p>
+
+Shifts a right b places, preserving the sign of the value.<p>
+
+<h4>3.4.6 shiftleft/poSghoS</h4><p>
+
+<i>a b <b>poSghoS</b> result</i><p>
+
+Shifts a left b places.<p>
+
+<h3>4 Relational and Logical Operators</h3><p>
+
+<h4>4.1 Relational Operators and Predicate Functions<br>
+<i>yu'jangwI'mey</i></h4><p>
+
+The standard convention for anything that returns a boolean argument is to
+end the keyword in the interrogative suffix <i>-'a'</i>, which in general
+is analogous to Lisp's well-established -p (plain old Lisp) or -? (Scheme
+and Dylan) predicate conventions; the English versions of the keywords
+follow the Scheme convention for consistency with the Klingon. The
+<i>tlhIngan Hubbeq Say'ghun'ogh
+paq</i> (KDF Programmer's Style Guide) requires this convention; see that
+document for further information.<p>
+
+<h4>4.1.1 gt?/law''a'</h4><p>
+
+<i>a b <b>law''a'</b> bool</i><p>
+
+Pops a and b off the stack, compares them, and returns a boolean value of
+true if a is larger.<p>
+
+<h4>4.1.2 lt?/puS'a'</h4><p>
+
+<i>a b <b>puS'a'</b> bool</i><p>
+
+Pops a and b off the stack, compares them, and returns a boolean value of
+true if a is smaller.<p>
+
+<h4>4.1.3 eq?/rap'a'</h4><p>
+
+<i>a b <b>rap'a'</b> bool</i><p>
+
+Pops a and b off the stack, compares them, and returns a boolean value of
+true if a is the same as b.<p>
+
+<h4>4.1.4 ge?/law'rap'a'</h4><p>
+
+<i>a b <b>law'rap'a'</b> bool</i><p>
+
+Pops a and b off the stack, compares them, and returns a boolean value of
+true if a is greater than or equal to b.<p>
+
+<h4>4.1.5 le?/puSrap'a'</h4><p>
+
+<i>a b <b>puSrap'a'</b> bool</i><p>
+
+Pops a and b off the stack, compares them, and returns a boolean value of
+true if a is less than or equal to b.<p>
+
+<h4>4.1.6 ne?/rapbe'a'</h4><p>
+
+<i>a b <b>rapbe'a'</b> bool</i><p>
+
+Pops a and b off the stack, compares them, and returns a boolean value of
+true if a is not equal to b.<p>
+
+<h4>4.1.7 null?/pagh'a'</h4><p>
+
+<i>obj <b>pagh'a'</b> bool</i><p>
+
+Examines the top object on the stack and returns a 1 if null, a 0 if not.<p>
+
+<h4>4.1.8 negative?/taH'a'</h4>
+
+<i>val <b>taH'a'</b> bool</i><p>
+
+Pops the top number on the stack and returns a 1 if less than 0, a 0 if
+not.<p>
+
+<h4>4.2 Logical Operators<br>
+<i>vItjangwI'mey</i></h4><p>
+
+Note that these are strictly logical operators, not bitwise.<p>
+
+<h4>4.2.1 and/je</h4><p>
+
+<i>a b <b>je</b> bool</i><p>
+
+Evaluates b and a and returns a 1 if both are true, a 0 if not.<p>
+
+<h4>4.2.2 or/joq</h4><p>
+
+<i>a b <b>joq</b> bool</i><p>
+
+Evaluates b and a and returns a 1 if one or both are true, a 0 if both are
+false.<p> 
+
+<h4>4.2.3 xor/ghap</h4><p>
+
+<i>a b <b>ghap</b> bool</i><p>
+
+Evaluates b and a and returns a 1 if only one is true, a 0 otherwise. <p>
+
+<h3>5 Input/Output and File Operators</h3><p>
+
+The <i>var'aq</i> Level 0 specification essentially handles console I/O
+and files in a manner very similar to the UNIX model.
+
+<h4>5.1 Console I/O</h4><p>
+
+The console I/O model at this point is very simple: write, read, error.<p>
+
+<h4>5.1.1 disp/cha'</h4><p>
+
+<i>obj <b>cha'</b> -</i><p>
+
+Pops the top object on the stack and writes it to STDOUT. Note that
+certain types of objects will generate meaningless output, particularly 
+anonymous proc objects.<p>
+
+<h4>5.1.2 listen/'Ij</h4><p>
+
+<i>- <b>'Ij</b> str</i><p>
+
+Reads one line of input and stores it as a string on top of the stack.<p>
+
+<h4>5.1.3 complain/bep</h4><p>
+
+<i>str <b>bep</b> -</i><p>
+
+Pops <i>str</i> and prints it to stderr.<p>
+
+<h3>6 System Variables<br>
+<i>patSarwI'mey</i></h3><p>
+
+This section describes <i>var'aq</i> keywords that do no more than put set
+values on the stack. Many of them are not precisely constants but more like
+environment variables.<p>
+
+<h4>6.1 I/O-related Constants</h4><p>
+
+<h4>6.1.1 newline/chu'DonwI'</h4><p>
+
+Prints a carriage return.<p>
+
+<h4>6.1.2 tab/chu'tut</h4><p>
+
+Advances by one tab stop.<p>
+
+<h4>6.2 Environment Constants</h4><p>
+
+<h4>6.2.1 whereami/nuqDaq_jIH</h4><p>
+
+Represents the location of the current host device. On Earth implementations,
+usually returns the IP address of the machine the interpreter is running
+on.<p>
+
+<h4>6.2.2 version/pongmI'</h4><p>
+
+Returns the current interpreter version number. The reference interpreter
+returns a date stamp.<p>
+
+<h4>6.2.3 argv/taghDe'</h4><p>
+
+Pushes the command line arguments on the stack as a list.<p>

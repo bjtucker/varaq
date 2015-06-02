@@ -1,0 +1,232 @@
+<title>Everything you were about to ask...</title>
+<h1>The <i>var'aq</i> FAQ List</h1><br>
+<i>created by <a href="mailto:connorbd@yahoo.com">Brian Connors</a><br>
+created 19 May 2000<br>
+last updated 17 July 2000</i>
+<hr>
+This document attempts to answer some of the more likely questions about
+<i>var'aq</i>: what it is, where to get it, where to find more about it. It's
+not a tutorial or a spec; there are other documents that describe that.<p>
+
+<ol>
+<li><b>What is Var'aq?</b><p>
+Var'aq (more properly, <i>var'aq</i>) is sort of a fanfic programming language
+based on the Klingon language used on the <a
+href="http://www.startrek.com">Star Trek</a> television series and movies.
+Klingon, created by Marc Okrand and "maintained", in a sense, by the <a
+href="http://www.kli.org">Klingon Language Institute</a> independently of
+Paramount's auspices, is really its own separate deal; this is merely a fan's
+attempt to give a little more richness to the culture as well as exercising a
+love of languages and a desire to learn more Perl.<p>
+
+<li><b>Where can I find out more about it?</b><p>
+
+The <i>var'aq</i> home page is located at <a
+href="http://www.geocities.com/connorbd/varaq">http://www.geocities.com/connorbd/varaq</a>.
+You should be able to find pretty much everything interesting about the
+language here, including specifications, sample code, and implementation
+notes. <p>
+
+As of this writing, the interpreter is in a basically functional state but
+implements less than half of the specification. Just something you should keep
+in mind.<p>
+
+<li><b>I heard something
+about a "Klingon Forth". Is this it? And why isn't it called
+<i>loSDIch</i>?</b><p>
+Yes, in a way. It's a stack-based RPN language like Forth or PostScript; the
+reason for this has nothing to do with an original desire to emulate one of
+those languages, but simply the unusual object-verb-subject syntax of Klingon.
+This sort of dictated the required form of the language right up front, ruling
+out a more traditional ALGOL-like syntax (based on English). Stack-based
+languages are actually easier to parse anyway, especially in Perl: just chomp
+and process. It is also an impure functional language in the same vein as
+Lisp or ML; it supports local variables, but it is really intended to do
+everything off the stack.<p>
+
+As for calling it <i>loSDIch</i> (Klingon for <i>fourth</i>), that would be an
+obvious joke title to anyone who actually spoke Klingon; this being at least
+a semi-serious exercise in artificial culture development, such a title would
+be noticeably silly at best. <i>var'aq</i> is actually completely meaningless,
+though it suggests identification with a famous Klingon mathematician or
+computer scientist in sort of the same way as Pascal recalls Blaise Pascal or
+Ada recalls Ada Lovelace. In any case, the name <i>var'aq</i> came before the form of the
+language. (In any case, <i>var'aq</i> is based more directly on
+PostScript anyway. But they're all part of the same family.)<p>
+
+<li><b>So what is this thing eventually going to be able to
+do?</b><p>
+
+Eventually? A lot. The intent is to offer such things as concurrency and even
+distributed processing support at some point (imagine that, a toy language
+designed for a Beowulf cluster), perhaps even basic windowing support or the
+like. Right now, I'm just shooting for such fancy features as, say,
+functions. Or loops. String support. That sort of thing.<p>
+
+<li><b>Describe <i>var'aq</i> for me in terms
+of other languages. You know, like a car or a beer or something like
+that.</b><p>
+As stated above, <i>var'aq</i>'s closest cyberlinguistic relative is probably
+PostScript, with a dash of Lisp thrown in. (This, incidentally, is sort of a
+Perl artifact, since Perl data typing is incredibly lax. It's just the easiest
+way to write it.) <p>
+
+Chris Pressey, creator of the notorious Befunge language,
+maintains a list of programming languages described as cars; in those terms,
+<i>var'aq</i> would be described thusly: <i>A 2000 VW Turbo Beetle with lots
+of amateurishly drawn Star Trek graphics painted 60s-style on the doors, a
+Starfleet Academy sticker in the window, and a custom car radio and A/C system
+run completely off an HP calculator.</i><p>
+
+In terms of genetics, <i>var'aq</i> is the bastard child of a back-room tryst
+between PostScript and Lisp after a Star Trek convention.<p>
+
+In terms of beer... <i>var'aq</i> is bloodwine. Serve hot, drink carefully
+because it'll mess you up if you don't.<p>
+
+There is a <i>var'aq</i> 99 Bottles Of Beer program, but since it won't yet
+parse I won't be posting it right yet.<p>
+
+<li><b>Why doesn't this construct translate to its PostScript/Forth
+equivalent?</b><p>
+
+The question is one of verisimilitude. The likelihood of a Klingon concept
+being an exact translation of its English equivalent isn't always good.
+Consequently, pure translation of an Earth language might make for a cute
+joke, but it would sacrifice plausibility. A prime example is the
+<i>qaw/qawHa'</i> instructions, which perform the same function as
+PostScript's <i>mark/cleartomark</i> instructions but literally translate
+to <i>remember/forget</i>; the idea is that the metaphor chosen in Klingon
+might more reflect the purpose of marking the stack than the actual act.
+Incidentally, It's quite true that many of the idioms chosen for
+<i>var'aq</i> are
+anything but obvious. This is the reason why; though mathematics is
+considered universal, it's not too likely that everything would be
+described in the same way. (That said, I did cheat in a few places; for
+example, the word for logarithm is a direct translation from the Greek
+<i>logarithmos</i>, meaning roughly "logic-number".) <p>
+
+
+For a rather thorough and creative discussion on the issues involved
+in translation, you might wish to look at <i>Le ton beau de Marot</i> by
+Douglas Hofstadter (the author of the hacker classic <i>Goedel, Escher,
+Bach: An Eternal Golden Braid</i>), an intricate and well-written look at
+the pitfalls of translation between languages. <p>
+
+
+<li><b>Does Paramount know about this?</b><p>
+
+Not until someone sends me Michael Okuda's email address. (NB Michael Okuda is
+the visual effects guy that created the modern Starfleet look and feel. I
+think he'd be interested, but I make no assumptions about officialdom.)<p>
+
+<li><b>Does the KLI know about this?</b><p>
+
+As a matter of fact, yes. <a href="mailto:mark@kli.org">Mark
+Shoulson</a> is the project's Head Linguistic Consultant and is in
+great measure responsible for getting the spec to reflect real Klingon
+constructions.<p>
+
+<li><b>Why isn't the Klingon version guaranteed to be in sync with the English
+version?</b><p>
+
+Good question. The answer is that I don't speak Klingon; as a linguistic work
+of art, it's a beauty, but I don't have much reason to learn it. As a result,
+the Klingon version is mechanically translated via a Perl filter from English
+to Klingon so I don't have to waste time synchronizing two separate source
+bases.<p>
+
+<li><b>Will there ever be...</b><p>
+
+<ul>
+<li><b>...a <i>var'aq</i>-to-C compiler?</b><p>
+
+Not likely. Such a beast would essentially spew out function calls to simulate
+<i>var'aq</i> operators and control structures and would therefore be a
+gigantic mess.<p>
+
+<li><b>...a version not written in Perl?</b><p>
+
+Eventually, mainly because I'd love to get this running on a PalmPilot. The
+Perl implementation is phenomenally ugly anyway, so a serious rewrite in C
+would definitely be in order at some point. Some might, for example,
+actually find <i>var'aq</i> useful for the occasional scripting job, and
+running an interpreter on an interpreter is if nothing else a great way to
+waste tremendous amounts of time.<p>
+
+<li><b>...a non-Unix version?</b><p>
+
+<i>var'aq</i> should run as is on any platform that can handle Perl. Mac,
+Unix, Windows, whatever. Next question.<p>
+
+</ul>
+
+<li><b>Who is responsible for this?</b><p>
+
+The principal members of the team as of this version of the FAQ are: <p>
+<ul>
+<li><a href="mailto:connorbd@yahoo.com">Brian Connors</a> -- Brian created
+the
+concept and is currently doing most of the implementation work and
+documentation. He's mostly a Perl-Linux-MacOS hacker and is currently
+available for employment; see his <a
+href="http://www.geocities.com/connorbd/resume3.html">resume</a> if you're
+looking. He also considers himself something of an <a
+href="http://www.opensource.org">Open Source</a> activist and considers
+<i>var'aq</i> his most worthwhile contribution to the movement so far.
+
+<li><a href="http://www.catseye.mb.ca">Chris Pressey</a> --
+Chris
+knocked around a number of ideas for the <i>var'aq</i> system in the early
+planning stages of the project and provided the first draft of Bearfood, a
+very, very small Forth interpreter in Perl that provided the guts of the
+procedure definition code. Chris' biggest area of expertise is pushing
+the frontiers of programming language design; check out his <a
+href="http://www.catseye.mb.ca/esoteric">Cat's Eye Technologies Esoteric
+Topics</a> web page if you'd like to see some of his better-known work
+(especially Befunge, a language that may have displaced Intercal as one
+of the most perverse in existence). 
+
+<li><a href="mailto:mark@kli.org">Mark
+Shoulson</a> -- One
+of the higher-ranking members of the <a href="http://www.kli.org">Klingon
+Language Institute</a>, Mark, being the only one of us who actually speaks
+Klingon, is our linguistics consultant. His role so far has been making
+sure that the Klingon words in the spec actually mean what they're
+supposed to mean, a job important enough that he gets coauthor credit with
+Brian and Chris.
+</ul>
+
+Shouts out go to j proctor and Alan Anderson from the <i>varaq-dev</i>
+mailing list for their contributions as well.
+<p>
+
+<li><b>Can I copy/borrow <i>var'aq</i>?</b><p>
+
+The spec is as open as any such spec gets. Feel free to implement your
+own; if you want to use our code it's freeware under the <a
+href="http://www.mozilla.org">Mozilla Public License</a> (Why not GPL?
+That's a <a
+href="http://www.geocities.com/connorbd/stallman.html">separate
+document</a>...). As mentioned above, Brian's heavy into that open source
+thing, so naturally in peer review we trust. Of course, you should
+acknowledge us, and we'd obviously love a cut of anything you happen to 
+make off our work...<p>
+
+<li><b>Where can I find out more about <i>var'aq</i>?</b><p>
+
+You can go to the <a
+href="http://www.geocities.com/connorbd/varaq"><i>var'aq</i> home page</a>
+at Yahoo! Geocities to find out everything there is to know about
+<i>var'aq</i>. At the website, you'll find all sorts of useful information
+(most of which is included with the distribution) as well as instructions
+for subscribing to the <code>varaq-dev</code> mailing list at <a
+href="http://www.egroups.com">eGroups</a>. Good lu...er... Qapla'!
+
+</ol>
+<hr>
+
+Click <a href="index.html">here</a> to return to the <i>var'aq</i> home
+page.<br>
+Click <a href="http://www.geocities.com/connorbd">here</a> to return to
+2266 Research Triangle.

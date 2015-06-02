@@ -1,0 +1,19 @@
+(* bloodwine.vq -- 99 bottles of bloodwine in varaq-engl *)
+
+~ bloodwine { "bottles of bloodwine" cha' } pong
+
+~ wall { "on the wall" cha' } pong
+
+~ fall { "if one of those bottles should happen to fall" cha' } pong
+
+~ nomore { "no more bottles of bloodwine on the wall" cha' } pong
+
+~ bottles {
+	latlh cha' bloodwine wall
+	latlh latlh cha' bloodwine
+	fall
+	latlh 0 law''a'
+		{ wa'teq bottles } HIja'chugh
+} pong
+
+99 bottles

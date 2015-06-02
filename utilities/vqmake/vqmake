@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+
+# vqmake
+# Slams a bunch of .vq, .vqe, or .vql files together to make a var'aq
+# application.

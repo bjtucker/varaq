@@ -1,0 +1,19 @@
+(* bloodwine.vqe -- 99 bottles of bloodwine in varaq-engl *)
+
+~ bloodwine { "bottles of bloodwine" disp } name
+
+~ wall { "on the wall" disp } name
+
+~ fall { "if one of those bottles should happen to fall" disp } name
+
+~ nomore { "no more bottles of bloodwine on the wall" disp } name
+
+~ bottles {
+	dup disp bloodwine wall
+	dup dup disp bloodwine
+	fall
+	dup 0 gt?
+		{ sub1 bottles } ifyes
+} name
+
+99 bottles

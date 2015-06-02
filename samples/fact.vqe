@@ -1,0 +1,54 @@
+
+
+(* factorial.vqe *)
+
+(* version 0.2 *)
+(* 19 September, 2000 *)
+
+(* Copyright (c) 2000 j proctor *)
+(* This code is nearly trivial.  Even so, I'm releasing it under *)
+(* the same terms as the var'aq interpreter. *)
+
+(* Usage: *)
+(* n factorial *)
+(* leaves n! (n factorial: n * n-1 * n-2 * ... 2) on the stack. *)
+
+(* Two possible errors: non-integer and negative.  Both complain *)
+(* and leave a 0 on the stack. *)
+
+~ factorial
+{
+	dup int?
+	{
+		"non-integer" complain
+		pop
+		0 escape
+	} ifno
+
+	dup negative?
+	{
+		"negative" complain
+		pop
+		0 escape
+	} ifyes
+
+	(* 0! = 0, 1! = 1, 2! = 2.  Save some time. *)
+	dup 3 lt?
+	{
+		escape
+	} ifyes
+
+	1 exch
+	do_factorial
+} name
+
+~ do_factorial
+{
+	dup 2 gt? 
+	{
+		dup
+		sub1
+		do_factorial
+	} ifyes
+	mul
+} name
