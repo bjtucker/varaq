@@ -1,6 +1,6 @@
 install:
  - mkdir ~/bin
- - cp varaq-enlg ~/bin
+ - cp varaq-engl ~/bin
 
 before_script:
  - export PATH=$PATH:~/bin
