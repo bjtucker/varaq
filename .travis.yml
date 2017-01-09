@@ -1,2 +1,2 @@
-script: echo "\"success\" disp\" |perl varaq-engl
+script: echo "\"success\" disp" |perl varaq-engl
 # - echo "\"Qapla'\" cha'" |perl varaq-kling
