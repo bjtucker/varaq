@@ -1,5 +1,9 @@
 install:
- - cp varaq-engl /usr/local/bin
+ - mkdir ~/bin
+ - cp varaq-enlg ~/bin
+
+before_script:
+ - export PATH=$PATH:~/bin
 script: 
  - echo "\"success\" disp" |perl varaq-engl
  - echo "\"Qapla'\" cha'" |perl varaq-kling
