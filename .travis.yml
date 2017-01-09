@@ -1,3 +1,6 @@
+install:
+ - cp varaq-engl /usr/local/bin
 script: 
  - echo "\"success\" disp" |perl varaq-engl
  - echo "\"Qapla'\" cha'" |perl varaq-kling
+ - echo "\"success\" disp" | varaq-engl
