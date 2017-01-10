@@ -1,3 +1,4 @@
+
 addons:
   apt:
     sources:
@@ -8,9 +9,11 @@ addons:
 install:
  - mkdir ~/bin
  - cp varaq-engl ~/bin
+ - git clone --depth 1 https://github.com/sstephenson/bats.git ~/bats
 
 before_script:
  - export PATH=$PATH:~/bin
+ - export PATH=$PATH:~/bats/bin/bats
 script: 
  - echo "\"success\" disp" |perl varaq-engl
  - echo "\"Qapla'\" cha'" |perl varaq-kling
