@@ -1,11 +1,3 @@
-
-addons:
-  apt:
-    sources:
-    - sourceline: 'ppa:ppa:duggan/bats'
-    packages:
-    - bats
-
 install:
  - mkdir ~/bin
  - cp varaq-engl ~/bin
