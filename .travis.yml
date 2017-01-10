@@ -1,5 +1,7 @@
 addons:
   apt:
+    sources:
+    - sourceline: 'ppa:ppa:duggan/bats'
     packages:
     - bats
 
