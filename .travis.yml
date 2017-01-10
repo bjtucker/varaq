@@ -1,3 +1,8 @@
+addons:
+  apt:
+    packages:
+    - bats
+
 install:
  - mkdir ~/bin
  - cp varaq-engl ~/bin
@@ -8,3 +13,4 @@ script:
  - echo "\"success\" disp" |perl varaq-engl
  - echo "\"Qapla'\" cha'" |perl varaq-kling
  - echo "\"success\" disp" | varaq-engl
+ - test/test.bats
