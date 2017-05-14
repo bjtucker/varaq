@@ -1,4 +1,4 @@
-This is a copy of the var'aq language developed by Brian Connors, Chris 
+This is a copy of the var'aq language developed by Brian Connors, Chris
 Pressey, and Mark Shoulson, which I downloaded from a geocities mirror
 and uploaded to github.
 
