@@ -33,6 +33,7 @@ compare_e() {
   compare_e "2 2 add" 4
   compare_e "2 -2 add" 0
   compare_e "-5 -7 add" -12
+
   compare_k "0 2 boq" 2
   compare_k "2 0 boq" 2
   compare_k "2 2 boq" 4
@@ -50,5 +51,17 @@ compare_e() {
   compare_k "2 -2 boqHa'" 4 
   compare_k "-5 -7 boqHa'" 2
   compare_k "10 -5 -7 boqHa' boqHa'" 8 
+}
+
+@test "#3.1.3 mul/boq'egh" {
+  compare_e "3 3 mul" 9 
+  compare_e "2 -2 mul" -4 
+  compare_e "-5 -7 mul" 35
+  compare_e "10 -5 -7 mul mul" 350 
+
+  compare_k "3 3 boq'egh" 9 
+  compare_k "2 -2 boq'egh" -4 
+  compare_k "-5 -7 boq'egh" 35
+  compare_k "10 -5 -7 boq'egh boq'egh" 350 
 }
 
