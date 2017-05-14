@@ -65,3 +65,13 @@ compare_e() {
   compare_k "10 -5 -7 boq'egh boq'egh" 350 
 }
 
+@test "#3.1.4 div/boqHa''egh" {
+  compare_e "3 3 div" 1
+  compare_e "0 3 div" 0
+  compare_e "-4 -2 div" 2
+
+  compare_k "3 3 boqHa''egh" 1
+  compare_k "0 3 boqHa''egh" 0
+  compare_k "-4 -2 boqHa''egh" 2
+}
+
