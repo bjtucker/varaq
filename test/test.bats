@@ -1,22 +1,54 @@
-#!/usr/bin/env bats
+#!/usr/bin/env bats --tap
 
-eval_vqe() {
-    echo "$1" | ./varaq-engl | tail -n +3
+# test cha' before using it in other tests
+@test "varaq-kling cha'" {
+    [ "$( echo "99 cha'" | ./varaq-kling | tail -n +3 )" -eq 99 ]
 }
 
-@test "echo using varaq-engl" {
-  [ "$( eval_vqe '2 disp' )" -eq 2 ]
+# test disp before using it in other tests
+@test "varaq-engl disp" {
+    [ "$( echo "99 disp" | ./varaq-engl | tail -n +3 )" -eq 99 ]
 }
 
-@test "varaq-engl add" {
-  [ "$( eval_vqe '2 2 add disp' )" -eq 4 ]
-  [ "$( eval_vqe '2 -2 add disp' )" -eq 0 ]
-  [ "$( eval_vqe '-5 -7 add disp' )" -eq -12 ]
+compare_k() {
+    [ "$( echo "$1 cha'" | ./varaq-kling | tail -n +3 )" -eq $2 ]
 }
 
-@test "varaq-engl sub" {
-  [ "$( eval_vqe '3 3 sub disp' )" -eq 0 ]
-  [ "$( eval_vqe '2 -2 sub disp' )" -eq 4 ]
-  [ "$( eval_vqe '-5 -7 sub disp' )" -eq 2 ]
+compare_e() {
+    [ "$( echo "$1 disp" | ./varaq-engl | tail -n +3 )" -eq $2 ]
+}
+
+
+@test "compare using varaq-kling" {
+  compare_k "2" 2
+}
+
+@test "compare using varaq-engl" {
+  compare_e "2" 2
+}
+
+@test "#3.1.1 add/boq" {
+  compare_e "0 2 add" 2
+  compare_e "2 0 add" 2
+  compare_e "2 2 add" 4
+  compare_e "2 -2 add" 0
+  compare_e "-5 -7 add" -12
+  compare_k "0 2 boq" 2
+  compare_k "2 0 boq" 2
+  compare_k "2 2 boq" 4
+  compare_k "2 -2 boq" 0
+  compare_k "-5 -7 boq" -12
+}
+
+@test "#3.1.2 sub/boqHa'" {
+  compare_e "3 3 sub" 0 
+  compare_e "2 -2 sub" 4 
+  compare_e "-5 -7 sub" 2
+  compare_e "10 -5 -7 sub sub" 8 
+
+  compare_k "3 3 boqHa'" 0 
+  compare_k "2 -2 boqHa'" 4 
+  compare_k "-5 -7 boqHa'" 2
+  compare_k "10 -5 -7 boqHa' boqHa'" 8 
 }
 
