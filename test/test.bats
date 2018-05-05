@@ -71,6 +71,7 @@ compare_e() {
   compare_e '"a" "a" streq?' 1
   compare_e '"foo" "bar" streq?' 0
 
+  compare_k "0 0 tlheghrap'a'" 1
 }
 
 @test "#3.1.1 add/boq" {
