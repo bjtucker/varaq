@@ -65,6 +65,18 @@ compare_e() {
   compare_k '"bar" 0 "bar" tlheghrar' 'bar 0bar'
 }
 
+@test "#2.5.3 streq?/tlheghrap'a'" {
+  compare_e '0 0 streq?' 1
+  compare_e '0 "0" streq?' 1
+  compare_e '"a" "a" streq?' 1
+  compare_e '"foo" "bar" streq?' 0
+
+  compare_k "0 0 tlheghrap'a'" 1
+  compare_k "0 \"0\" tlheghrap'a'" 1
+  compare_k "\"a\" \"a\" tlheghrap'a'" 1
+  compare_k "\"foo\" \"bar\" tlheghrap'a'" 0
+}
+
 @test "#3.1.1 add/boq" {
   compare_e "0 2 add" 2
   compare_e "2 0 add" 2
