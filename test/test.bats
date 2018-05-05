@@ -30,7 +30,7 @@ compare_k() {
 }
 
 compare_k() {
-    [ "$( echo "3 2 1 dump" | ./varaq-engl | tail -n +4 )" = "$2" ]
+    [ "$( echo "$1 dump" | ./varaq-engl | tail -n +4 )" = "$2" ]
 }
 
 
