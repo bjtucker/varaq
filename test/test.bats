@@ -12,7 +12,7 @@
 
 # test dump before using it in other tests
 @test "varaq-engl dump" {
-    [ "$( echo "9 99 999 dump" | ./varaq-engl | tail -n +3 )" -eq "9 99 999" ]
+    [ "$( echo "9 99 999 dump" | ./varaq-engl | tail -n +3 )" = "9 99 999" ]
 }
 
 
@@ -33,10 +33,7 @@ compare_e() {
   compare_e "2" 2
 }
 
-@test "#2.1.7 dump/Hotlh" {
-  compare_e "6 dump" 6
-  compare_k "2 Hotlh" 2
-}
+
 
 @test "#3.1.1 add/boq" {
   compare_e "0 2 add" 2
