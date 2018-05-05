@@ -12,8 +12,8 @@
 
 # test dump before using it in other tests
 @test "varaq-kling dump" {
-    result=$( echo "9 99 999 Hotlh" | ./varaq-kling | tail -n +3 )
-    [ $result = "9 99 999" ]
+    result=$( echo "9 99 999 Hotlh" | ./varaq-kling | tail -n +4 )
+    [ "$result" = "9 99 999" ]
 }
 
 
