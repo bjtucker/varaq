@@ -46,6 +46,9 @@ compare_e() {
   compare_e '2 -2 strtie' '2-2'
   compare_e '-5 -7 strtie' '-5-7'
   compare_e '"foo" "bar" strtie' 'foobar'
+  compare_e '1 bar strtie' '1bar'
+  compare_e '0 bar strtie' '0bar'
+  compare_e '"bar" 0 strtie' 'bar0'
 }
 
 @test "#3.1.1 add/boq" {
