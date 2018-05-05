@@ -30,12 +30,16 @@ compare_k() {
 }
 
 compare_k() {
-    [ "$( echo "$1 dump" | ./varaq-engl | tail -n +4 )" = "$2" ]
+    [ "$( echo "$1 Hotlh" | ./varaq-kling | tail -n +4 )" = "$2" ]
 }
 
 
 compare_e() {
     [ "$( echo "$1 disp" | ./varaq-engl | tail -n +3 )" -eq $2 ]
+}
+
+compare_e() {
+    [ "$( echo "$1 dump" | ./varaq-engl | tail -n +4 )" = "$2" ]
 }
 
 
