@@ -10,6 +10,12 @@
     [ "$( echo "99 disp" | ./varaq-engl | tail -n +3 )" -eq 99 ]
 }
 
+# test dump before using it in other tests
+@test "varaq-engl dump" {
+    [ "$( echo "9 99 999 dump" | ./varaq-engl | tail -n +3 )" -eq "9 99 999" ]
+}
+
+
 compare_k() {
     [ "$( echo "$1 cha'" | ./varaq-kling | tail -n +3 )" -eq $2 ]
 }
