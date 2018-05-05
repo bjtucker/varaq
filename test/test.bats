@@ -46,9 +46,23 @@ compare_e() {
   compare_e '2 -2 strtie' '2-2'
   compare_e '-5 -7 strtie' '-5-7'
   compare_e '"foo" "bar" strtie' 'foobar'
-  compare_e '1 bar strtie' '1bar'
-  compare_e '0 bar strtie' '0bar'
+  compare_e '1 "bar" strtie' '1bar'
+  compare_e '0 "bar" strtie' '0bar'
   compare_e '"bar" 0 strtie' 'bar0'
+  compare_e '"bar" 1 strtie' 'bar1'
+  compare_e '"bar" 0 "bar" strtie' 'bar 0bar'
+
+  compare_k '0 2 tlheghrar' '02'
+  compare_k '2 0 tlheghrar' '20'
+  compare_k '2 2 tlheghrar' '22'
+  compare_k '2 -2 tlheghrar' '2-2'
+  compare_k '-5 -7 tlheghrar' '-5-7'
+  compare_k '"foo" "bar" tlheghrar' 'foobar'
+  compare_k '1 "bar" tlheghrar' '1bar'
+  compare_k '0 "bar" tlheghrar' '0bar'
+  compare_k '"bar" 0 tlheghrar' 'bar0'
+  compare_k '"bar" 1 tlheghrar' 'bar1'
+  compare_k '"bar" 0 "bar" tlheghrar' 'bar 0bar'
 }
 
 @test "#3.1.1 add/boq" {
