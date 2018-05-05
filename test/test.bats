@@ -11,9 +11,12 @@
 }
 
 # test dump before using it in other tests
-@test "varaq-engl dump" {
-    [ "$( echo "9 99 999 Hotlh" | ./varaq-kling | tail -n +3 )" = "9 99 999" ]
+@test "varaq-kling dump" {
+    result=$( echo "9 99 999 Hotlh" | ./varaq-kling | tail -n +3 )
+    [ $result = "9 99 999" ]
 }
+
+
 
 
 compare_k() {
