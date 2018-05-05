@@ -22,18 +22,13 @@
     [ "$result" = "3 2 1" ]
 }
 
-
-
-
 compare_k() {
     [ "$( echo "$1 Hotlh" | ./varaq-kling | tail -n +4 )" = "$2" ]
 }
 
-
 compare_e() {
     [ "$( echo "$1 dump" | ./varaq-engl | tail -n +4 )" = "$2" ]
 }
-
 
 @test "compare using varaq-kling" {
   compare_k "2" 2
@@ -42,9 +37,6 @@ compare_e() {
 @test "compare using varaq-engl" {
   compare_e "2" 2
 }
-
-
-
 
 
 @test "#3.1.1 add/boq" {
@@ -84,4 +76,3 @@ compare_e() {
   compare_k "-5 -7 boq'egh" 35
   compare_k "10 -5 -7 boq'egh boq'egh" 350 
 }
-
