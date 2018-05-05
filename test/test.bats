@@ -73,6 +73,8 @@ compare_e() {
 
   compare_k "0 0 tlheghrap'a'" 1
   compare_k "0 \"0\" tlheghrap'a'" 1
+  compare_k "\"a\" \"a\" tlheghrap'a'" 1
+  compare_k "\"foo\" \"bar\" tlheghrap'a'" 1
 }
 
 @test "#3.1.1 add/boq" {
