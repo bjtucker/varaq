@@ -41,6 +41,11 @@ compare_e() {
 
 @test "2.5.1 strtie/tlheghrar" {
   compare_e '0 2 strtie' '02'
+  compare_e '2 0 strtie' '20'
+  compare_e '2 2 strtie' '22'
+  compare_e '2 -2 strtie' '2-2'
+  compare_e '-5 -7 strtie' '-5-7'
+  compare_e '"foo" "bar" strtie' 'foobar'
 }
 
 @test "#3.1.1 add/boq" {
