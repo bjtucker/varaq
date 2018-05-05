@@ -69,7 +69,7 @@ compare_e() {
   compare_e '0 0 streq?' 1
   compare_e '0 "0" streq?' 1
   compare_e '"a" "a" streq?' 1
-  compare_3 '"foo" "bar" streq?' 0
+  compare_e '"foo" "bar" streq?' 0
 
 }
 
