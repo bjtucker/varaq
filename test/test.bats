@@ -12,7 +12,7 @@
 
 # test dump before using it in other tests
 @test "varaq-engl dump" {
-    [ "$( echo "9 99 999 dump" | ./varaq-engl | tail -n +3 )" = "9 99 999" ]
+    [ "$( echo "9 99 999 Hotlh" | ./varaq-kling | tail -n +3 )" = "9 99 999" ]
 }
 
 
