@@ -4,9 +4,9 @@ and uploaded to github.
 
 Since then I've made few changes, focused on testing and integration.
 So far, they are:
-  * automated tests with BATS
-  * dockerized
-  * automated builds and testing with Travis-ci.
+  * Automated some tests with BATS.
+  * Dockerized.
+  * Automated builds and testing with Travis-ci.
 
 The project as it was is not according to its specification, but enough
 of it is implememted that the 99 bottles example runs with a minor
