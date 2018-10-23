@@ -10,14 +10,25 @@
     [ "$( echo "99 disp" | ./varaq-engl | tail -n +3 )" -eq 99 ]
 }
 
+# test Hotlh before using it in other tests
+@test "varaq-kling Hotlh" {
+    result=$( echo "9 99 999 Hotlh" | ./varaq-kling | tail -n +4 )
+    [ "$result" = "9 99 999" ]
+}
+
+# test dump before using it in other tests
+@test "varaq-kling dump" {
+    result=$( echo "3 2 1 dump" | ./varaq-engl | tail -n +4 )
+    [ "$result" = "3 2 1" ]
+}
+
 compare_k() {
-    [ "$( echo "$1 cha'" | ./varaq-kling | tail -n +3 )" -eq $2 ]
+    [ "$( echo "$1 Hotlh" | ./varaq-kling | tail -n +4 )" = "$2" ]
 }
 
 compare_e() {
-    [ "$( echo "$1 disp" | ./varaq-engl | tail -n +3 )" -eq $2 ]
+    [ "$( echo "$1 dump" | ./varaq-engl | tail -n +4 )" = "$2" ]
 }
-
 
 @test "compare using varaq-kling" {
   compare_k "2" 2
@@ -25,6 +36,45 @@ compare_e() {
 
 @test "compare using varaq-engl" {
   compare_e "2" 2
+}
+
+
+@test "2.5.1 strtie/tlheghrar" {
+  compare_e '0 2 strtie' '02'
+  compare_e '2 0 strtie' '20'
+  compare_e '2 2 strtie' '22'
+  compare_e '2 -2 strtie' '2-2'
+  compare_e '-5 -7 strtie' '-5-7'
+  compare_e '"foo" "bar" strtie' 'foobar'
+  compare_e '1 "bar" strtie' '1bar'
+  compare_e '0 "bar" strtie' '0bar'
+  compare_e '"bar" 0 strtie' 'bar0'
+  compare_e '"bar" 1 strtie' 'bar1'
+  compare_e '"bar" 0 "bar" strtie' 'bar 0bar'
+
+  compare_k '0 2 tlheghrar' '02'
+  compare_k '2 0 tlheghrar' '20'
+  compare_k '2 2 tlheghrar' '22'
+  compare_k '2 -2 tlheghrar' '2-2'
+  compare_k '-5 -7 tlheghrar' '-5-7'
+  compare_k '"foo" "bar" tlheghrar' 'foobar'
+  compare_k '1 "bar" tlheghrar' '1bar'
+  compare_k '0 "bar" tlheghrar' '0bar'
+  compare_k '"bar" 0 tlheghrar' 'bar0'
+  compare_k '"bar" 1 tlheghrar' 'bar1'
+  compare_k '"bar" 0 "bar" tlheghrar' 'bar 0bar'
+}
+
+@test "#2.5.3 streq?/tlheghrap'a'" {
+  compare_e '0 0 streq?' 1
+  compare_e '0 "0" streq?' 1
+  compare_e '"a" "a" streq?' 1
+  compare_e '"foo" "bar" streq?' 0
+
+  compare_k "0 0 tlheghrap'a'" 1
+  compare_k "0 \"0\" tlheghrap'a'" 1
+  compare_k "\"a\" \"a\" tlheghrap'a'" 1
+  compare_k "\"foo\" \"bar\" tlheghrap'a'" 0
 }
 
 @test "#3.1.1 add/boq" {
@@ -74,4 +124,3 @@ compare_e() {
   compare_k "0 3 boqHa''egh" 0
   compare_k "-4 -2 boqHa''egh" 2
 }
-
