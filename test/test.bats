@@ -39,7 +39,9 @@ compare_e() {
 }
 
 @test "#2.1.1 pop/woD" {
-  #TODO
+  compare_e '0 2 pop' '0'
+
+  compare_k '0 2 woD' '0'
 }
 
 @test "2.5.1 strtie/tlheghrar" {
