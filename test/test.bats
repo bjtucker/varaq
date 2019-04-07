@@ -40,10 +40,7 @@ compare_e() {
 
 @test "#2.1.1 pop/woD" {
   compare_e '0 2 pop' '0'
-  
-  compare_e '0 2 pop pop' ''
-  compare_e '"foo" pop' ''
-  compare_e '"foo" "bar" pop' '"foo"'
+  compare_e '"foo" "bar" pop' 'foo'
   compare_e '0 2 pop' '0'
 
   compare_k '0 2 woD' '0'
