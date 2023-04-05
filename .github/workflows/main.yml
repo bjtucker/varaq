@@ -25,5 +25,5 @@ jobs:
           ./install.sh $HOME/.local
       - name: Run tests
         run: |
-          PATH=\$HOME/.local/bin:\$PATH
+          PATH="$HOME/.local/bin:$PATH"
           bats --tap test/test.bats
