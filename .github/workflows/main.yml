@@ -1,3 +1,5 @@
+name: Run tests
+
 on:
   push:
   pull_request:
@@ -27,3 +29,5 @@ jobs:
         run: |
           export PATH=$HOME/.local/bin:$PATH
           bats --tap test/test.bats
+        env:
+          PATH: ${{ env.PATH }}
