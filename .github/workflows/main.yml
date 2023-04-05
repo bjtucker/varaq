@@ -22,6 +22,6 @@ jobs:
         run: |
           git clone https://github.com/bats-core/bats-core.git
           cd bats-core
-          ./install.sh /usr/local
+          ./install.sh $HOME/.local
       - name: Run tests
         run: bats --tap test/test.bats
