@@ -23,6 +23,6 @@ jobs:
           git clone https://github.com/bats-core/bats-core.git
           cd bats-core
           ./install.sh $HOME/.local
-          echo "export PATH=$HOME/.local/bin:\$PATH" >> $GITHUB_ENV
+          echo "PATH=\$HOME/.local/bin:\$PATH" >> $GITHUB_ENV
       - name: Run tests
         run: bats --tap test/test.bats
