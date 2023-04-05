@@ -24,8 +24,8 @@ I intend to continue adding my own contributions to the project as time permits 
 
 Ben
 
-[![Build Status](https://img.shields.io/github/workflow/status/bjtucker/varaq/Run%20tests?label=Tests&logo=github&style=flat-square)](https://github.com/bjtucker/varaq/actions/workflows/tests.yml)
 
+[![Build Status](https://github.com/bjtucker/varaq/actions/workflows/main.yml)](https://github.com/bjtucker/varaq/actions/workflows/main.yml/badge.svg)
 
 ## Original README
 
