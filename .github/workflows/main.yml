@@ -1,5 +1,3 @@
-name: Run tests
-
 on:
   push:
   pull_request:
@@ -24,5 +22,8 @@ jobs:
           cd bats-core
           ./install.sh $HOME/.local
           echo "PATH=\$HOME/.local/bin:\$PATH" >> $GITHUB_ENV
+          source $HOME/.bashrc
       - name: Run tests
-        run: bats --tap test/test.bats
+        run: |
+          export PATH=$HOME/.local/bin:$PATH
+          bats --tap test/test.bats
