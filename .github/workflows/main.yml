@@ -1,0 +1,24 @@
+name: Run tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        perl-version: [5.22]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install bats
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get install -qq bats
+      - name: Install bats on macOS
+        if: matrix.os == 'macos-latest'
+        run: brew install bats
+      - name: Run tests
+        run: bats --tap test/test.bats
