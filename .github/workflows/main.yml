@@ -14,11 +14,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install bats
+      - name: Install bats on Ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get install -qq bats
       - name: Install bats on macOS
         if: matrix.os == 'macos-latest'
-        run: brew install bats
+        run: |
+          git clone https://github.com/bats-core/bats-core.git
+          cd bats-core
+          ./install.sh /usr/local
       - name: Run tests
         run: bats --tap test/test.bats
