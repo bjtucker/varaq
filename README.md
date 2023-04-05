@@ -25,7 +25,8 @@ I intend to continue adding my own contributions to the project as time permits 
 Ben
 
 
-[![Build Status](https://github.com/bjtucker/varaq/actions/workflows/main.yml)](https://github.com/bjtucker/varaq/actions/workflows/main.yml/badge.svg)
+![run tests](https://github.com/bjtucker/varaq/actions/workflows/main.yml/badge.svg)
+
 
 ## Original README
 
