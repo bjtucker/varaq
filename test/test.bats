@@ -131,3 +131,7 @@ compare_e() {
   compare_k "0 3 boqHa''egh" 0
   compare_k "-4 -2 boqHa''egh" 2
 }
+
+@test "this should fail" {
+  compare_e "2" 3
+}
