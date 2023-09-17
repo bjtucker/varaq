@@ -13,7 +13,7 @@
 			]
 		}
 	},
-	"postStartCommand": {
+	"postAttachCommand": {
 		"safe-dir": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 	}
 }
