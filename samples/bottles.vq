@@ -1,3 +1,5 @@
+#! /usr/bin/perl /workspaces/varaq/varaq-kling
+
 (* bloodwine.vq -- 99 bottles of bloodwine in varaq-engl *)
 
 ~ bloodwine { "bottles of bloodwine" cha' } pong
@@ -13,7 +15,7 @@
 	latlh latlh cha' bloodwine
 	fall
 	latlh 0 law''a'
-		{ wa'teq bottles } HIja'chugh
+		{ wa'boqHa' bottles } HIja'chugh
 } pong
 
 99 bottles

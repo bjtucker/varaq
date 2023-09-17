@@ -1,1 +1,130 @@
-# var'aq dictionary## File Format Notes:# 1. Lines that begin with # are comments; empty lines can be ignored.# 2. Data lines contain multiple entries separated by tabs.# 3. Alternatives within a particular language are separated by the | #    character; for purposes of machine translation, the first form#    listed is preferred.# 4. The first data line contains language codes.  Where these #    represent natural human languages, conformance with RFC1766 is #    recommended.  #  * Note potential conflict: kl has been used for Klingon, but is #    officially assigned in ISO639 to Greenlandic, an Eskimo language.en	kl|tlh# *** Data Types ***# (* probably not necessary in this file *)number	mI'function	jangwI'list	ghomHomstring	tlhegh# *** Language Basics ***# Stack Operationspop	woDdup	latlhexch	tamclear	chImmoHremember	qawforget	qawHa'dump	Hotlh# Data/Code Operations~	~|li'moHname	pongset	cher# Control Flowifyes	HIja'chughifno	ghobe'chughchoose	wIveval	chovescape	narghrepeat	vangqa'# List Operationssplit	SIjcons	muvshatter	ghorqu'empty?	chIm'a'# String Operatorsstrcat	tlheghrarcompose	naQmoHstreq?	tlhreghrap'a'strcut	tlheghpe'strmeasure	tlheghjuvexplode	jor# *** Mathematical Operators ***# Arithmetic Operatorsadd	chelsub	teqmul	law'moHdiv	wavidiv	Habwavmod	chuvpow	law'qa'moHsqrt	loS'aradd1	wa'chelsub1	wa'teq# Trigonometric and Logarithmic Operatorssin	joqcos	joqHa'tan	qojmI'atan	qojHa'ln	ghurtaHlog	maHghurtaHlog3	wejghurtaH# Numerical Operations and Constantssetrand	mIScherrand	mISpi	HeHmI'e	ghurmI'int?	HabmI''a'number?	mI''a'numberize	mi'moH# Bitwise Operatorsisolate	mobmoHmix	DuDcontradict	tlhochcompl	Qo'moHshiftright	nIHghoSshiftleft	poSghoS# *** Relational and Logical Operators ***# Relational Operatorsgt?	law''a'lt?	puS'a'eq?	rap'a'ge?	law'rap'a'le?	puSrap'a'ne?	rapbe'a'null?	pagh'a'negative?	taH'a'# Logical Operatorsand	jeor	joqxor	ghap# *** Input/Output and File Operators ***# Console I/Odisp	cha'listen	'Ijcomplain	bep
+# var'aq dictionary
+#
+# File Format Notes:
+# 1. Lines that begin with # are comments; empty lines can be ignored.
+# 2. Data lines contain multiple entries separated by tabs.
+# 3. Alternatives within a particular language are separated by the | 
+#    character; for purposes of machine translation, the first form
+#    listed is preferred.
+# 4. The first data line contains language codes.  Where these 
+#    represent natural human languages, conformance with RFC1766 is 
+#    recommended.  
+#  * Note potential conflict: kl has been used for Klingon, but is 
+#    officially assigned in ISO639 to Greenlandic, an Eskimo language.
+
+
+en	kl|tlh
+
+
+# *** Data Types ***
+# (* probably not necessary in this file *)
+number	mI'
+function	jangwI'
+list	ghomHom
+string	tlhegh
+
+
+# *** Language Basics ***
+
+# Stack Operations
+pop	woD
+dup	latlh
+exch	tam
+clear	chImmoH
+remember	qaw
+forget	qawHa'
+dump	Hotlh
+
+# Data/Code Operations
+~	~|li'moH
+name	pong
+set	cher
+
+# Control Flow
+ifyes	HIja'chugh
+ifno	ghobe'chugh
+choose	wIv
+eval	chov
+escape	nargh
+repeat	vangqa'
+
+# List Operations
+split	SIj
+cons	muv
+shatter	ghorqu'
+empty?	chIm'a'
+
+# String Operators
+strcat	tlheghrar
+compose	naQmoH
+streq?	tlhreghrap'a'
+strcut	tlheghpe'
+strmeasure	tlheghjuv
+explode	jor
+
+
+# *** Mathematical Operators ***
+
+# Arithmetic Operators
+add	chel
+sub	teq
+mul	law'moH
+div	wav
+idiv	Habwav
+mod	chuv
+pow	law'qa'moH
+sqrt	loS'ar
+add1	wa'chel
+sub1	wa'boqHa'
+
+# Trigonometric and Logarithmic Operators
+sin	joq
+cos	joqHa'
+tan	qojmI'
+atan	qojHa'
+ln	ghurtaH
+log	maHghurtaH
+log3	wejghurtaH
+
+# Numerical Operations and Constants
+setrand	mIScher
+rand	mIS
+pi	HeHmI'
+e	ghurmI'
+int?	HabmI''a'
+number?	mI''a'
+numberize	mi'moH
+
+# Bitwise Operators
+isolate	mobmoH
+mix	DuD
+contradict	tlhoch
+compl	Qo'moH
+shiftright	nIHghoS
+shiftleft	poSghoS
+
+
+# *** Relational and Logical Operators ***
+
+# Relational Operators
+gt?	law''a'
+lt?	puS'a'
+eq?	rap'a'
+ge?	law'rap'a'
+le?	puSrap'a'
+ne?	rapbe'a'
+null?	pagh'a'
+negative?	taH'a'
+
+# Logical Operators
+and	je
+or	joq
+xor	ghap
+
+
+# *** Input/Output and File Operators ***
+
+# Console I/O
+disp	cha'
+listen	'Ij
+complain	bep

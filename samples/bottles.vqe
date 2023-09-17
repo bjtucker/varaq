@@ -1,3 +1,5 @@
+#! /usr/bin/perl /workspaces/varaq/varaq-engl
+
 (* bloodwine.vqe -- 99 bottles of bloodwine in varaq-engl *)
 
 ~ bloodwine { "bottles of bloodwine" disp } name
