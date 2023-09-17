@@ -1,0 +1,14 @@
+{
+	"name": "Debian",
+	"image": "mcr.microsoft.com/vscode/devcontainers/base:debian-12",
+	"features": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"richterger.perl",
+				"GitHub.vscode-github-actions",
+				"jetmartin.bats"
+			]
+		}
+	}
+}
