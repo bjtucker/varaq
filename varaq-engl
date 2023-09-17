@@ -41,7 +41,7 @@ RestartScan:
 
   while ($line =~ /^\s*$/)  # Get next line if we used up the current line
   {
-    $line = <STDIN>;
+    $line = ( $stream_choice eq "stdin" ) ? <STDIN> : <FH>;
     return undef if not defined $line;
     chomp $line;
     $line =~ s/^\s*//;
@@ -188,7 +188,7 @@ sub execute {
 # from somewhere, yes?
 
 	} elsif ($cmd eq 'listen') {
-		$in = <STDIN>;
+    $in = ( $stream_choice eq "stdin" ) ? <STDIN> : <FH>;
 		push @{$stack}, $in;
 
 # This may seem redundant, but a careful reading of the code indicates
@@ -526,7 +526,7 @@ sub execute {
 		else {
 			while ($cval > 0) {
 				execblock();
-				if ($escv = 1) {
+				if ($escv == 1) {
 					$cval = 1;
 					$escv = 0;
 				}
@@ -635,9 +635,18 @@ sub execute {
 if ( -t STDIN and not @ARGV ) {
     print "var'aq Reference Edition -- English v0.5\n";
     print "(c)2000 Brian Connors, Chris Pressey, and Mark Shoulson\n\n";
+    $stream_choice = "stdin";
+    $token         = token();
+    parse();
 }
-$token = token();
-parse();
+else {
+    my $filename = $ARGV[0];
+    $stream_choice = "file";
+    open( FH, '<', $filename ) or die $!;
+    $token = token();
+    parse();
+    close(FH);
+}
 
 ### END ###
 
