@@ -1,0 +1,19 @@
+{
+	"name": "Debian",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"features": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"richterger.perl",
+				"GitHub.vscode-github-actions",
+				"jetmartin.bats"
+			]
+		}
+	},
+	"postAttachCommand": {
+		"safe-dir": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+	}
+}
