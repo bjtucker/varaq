@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:debian-12
+FROM mcr.microsoft.com/vscode/devcontainers/base:debian-11
 
 RUN apt-get update && apt-get install -y \
   libanyevent-perl \
