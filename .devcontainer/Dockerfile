@@ -14,3 +14,4 @@ RUN apt-get update && apt-get install -y \
 
 ARG PERL_MM_USE_DEFAULT=1
 RUN cpan Perl::LanguageServer
+RUN cpan Perl::Tidy

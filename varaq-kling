@@ -632,8 +632,10 @@ sub execute {
 
 ### MAIN ###
 
-print "var'aq Reference Edition -- Klingon v0.5\n";
-print "(c)2000 Brian Connors, Chris Pressey, and Mark Shoulson\n\n";
+if ( -t STDIN and not @ARGV ) {
+    print "var'aq Reference Edition -- Klingon v0.5\n";
+    print "(c)2000 Brian Connors, Chris Pressey, and Mark Shoulson\n\n";
+}
 $token = token();
 parse();
 
