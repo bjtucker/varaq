@@ -635,6 +635,9 @@ sub execute {
 if ( -t STDIN and not @ARGV ) {
     print "var'aq Reference Edition -- English v0.5\n";
     print "(c)2000 Brian Connors, Chris Pressey, and Mark Shoulson\n\n";
+}
+elsif ( not @ARGV ) {
+    my $filename = $ARGV[0];
     $stream_choice = "stdin";
     $token         = token();
     parse();
